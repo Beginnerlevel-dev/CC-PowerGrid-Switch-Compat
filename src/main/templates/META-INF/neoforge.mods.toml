@@ -32,3 +32,17 @@ type = "required"
 versionRange = "[6.0.9,6.1.0)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="computercraft"
+    type="required"
+    versionRange="[1.122.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="powergrid"
+    type="required"
+    versionRange="[0.6.2,)"
+    ordering="BEFORE"
+    side="BOTH"

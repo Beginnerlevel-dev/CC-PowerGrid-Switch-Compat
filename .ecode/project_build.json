@@ -1,0 +1,32 @@
+{
+  "build gradle": {
+    "build": [
+      {
+        "args": "",
+        "command": "/home/beginnerleveldev/Documents/coding/create-addon-template/gradlew build",
+        "working_dir": "/home/beginnerleveldev/Documents/coding/create-addon-template"
+      }
+    ],
+    "build_types": [],
+    "clean": [
+      {
+        "args": "",
+        "command": "",
+        "working_dir": ""
+      }
+    ],
+    "config": {
+      "clear_sys_env": false,
+      "strip_ansi_codes": false
+    },
+    "os": [
+      "linux"
+    ],
+    "output_parser": {
+      "config": {
+        "preset": "generic",
+        "relative_file_paths": true
+      }
+    }
+  }
+}

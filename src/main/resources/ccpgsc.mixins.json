@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.bld.ccpgsc.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "HvSwitchVisualMixin"
+  ],
+  "mixins": [
+  	"HvSwitchBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
