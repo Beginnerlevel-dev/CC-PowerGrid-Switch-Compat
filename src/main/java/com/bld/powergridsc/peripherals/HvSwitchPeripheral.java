@@ -1,4 +1,4 @@
-package com.bld.ccpgsc.peripherals;
+package com.bld.powergridsc.peripherals;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import org.patryk3211.powergrid.electricity.electricswitch.HvSwitchBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import com.bld.ccpgsc.access.IHvSwitchAccess;
+import com.bld.powergridsc.access.IHvSwitchAccess;
 
 public class HvSwitchPeripheral implements IPeripheral {
     private final HvSwitchBlockEntity hvSwitch;
@@ -27,7 +27,7 @@ public class HvSwitchPeripheral implements IPeripheral {
 
     @LuaFunction
 	public final void setState(boolean closed) {
-    	((IHvSwitchAccess) (Object) hvSwitch).ccpgsc$setInstantState(closed);
+    	((IHvSwitchAccess) (Object) hvSwitch).powergridsc$setInstantState(closed);
 	}
 
     @Override

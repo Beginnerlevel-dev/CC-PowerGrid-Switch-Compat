@@ -5,7 +5,20 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.78'
 }
 
-version = mod_version
+def modLoader = findProperty("loom.platform") ?: findProperty("architectury.platform")
+if (!modLoader) {
+    if (plugins.hasPlugin("net.neoforged.moddev") || plugins.hasPlugin("net.neoforged.gradle.userdev")) {
+        modLoader = "neoforge"
+    } else if (plugins.hasPlugin("net.minecraftforge.gradle")) {
+        modLoader = "forge"
+    } else if (plugins.hasPlugin("fabric-loom") || plugins.hasPlugin("dev.architectury.loom")) {
+        modLoader = "fabric"
+    } else {
+        modLoader = project.name // Fallback to subproject folder name (e.g., "neoforge", "fabric")
+    }
+}
+
+version = "mc${minecraft_version}-v${mod_version}-${modLoader}"
 group = mod_group_id
 
 // Template bootstrap task: ./gradlew renameMod --name "Your Mod"
@@ -48,7 +61,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = archives_name
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

@@ -1,4 +1,4 @@
-package com.bld.ccpgsc;
+package com.bld.powergridsc;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -8,15 +8,15 @@ import dan200.computercraft.api.peripheral.PeripheralCapability;
 import org.patryk3211.powergrid.collections.ModdedBlockEntities;
 import org.patryk3211.powergrid.electricity.electricswitch.SwitchBlock;
 
-import com.bld.ccpgsc.peripherals.*;
+import com.bld.powergridsc.peripherals.*;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 
-@Mod(CCPGSC.ID)
-public class CCPGSC {
-    public static final String ID = "ccpgsc";
+@Mod(PowerGridSC.ID)
+public class PowerGridSC {
+    public static final String ID = "powergridsc";
     
-    public CCPGSC(IEventBus modEventBus, ModContainer modContainer) {
+    public PowerGridSC(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::registerCapabilities);
     }
     

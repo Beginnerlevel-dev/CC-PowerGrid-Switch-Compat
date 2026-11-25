@@ -1,4 +1,4 @@
-package com.bld.ccpgsc.peripherals;
+package com.bld.powergridsc.peripherals;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;

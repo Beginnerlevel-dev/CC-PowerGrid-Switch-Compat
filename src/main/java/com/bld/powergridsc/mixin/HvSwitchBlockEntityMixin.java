@@ -1,4 +1,4 @@
-package com.bld.ccpgsc.mixin;
+package com.bld.powergridsc.mixin;
 
 import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.sounds.SoundSource;
@@ -7,7 +7,7 @@ import org.patryk3211.powergrid.electricity.electricswitch.HvSwitchBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import com.bld.ccpgsc.access.IHvSwitchAccess;
+import com.bld.powergridsc.access.IHvSwitchAccess;
 
 @Mixin(HvSwitchBlockEntity.class)
 public abstract class HvSwitchBlockEntityMixin implements IHvSwitchAccess {
@@ -20,7 +20,7 @@ public abstract class HvSwitchBlockEntityMixin implements IHvSwitchAccess {
 
     @Override
 	@Unique
-	public void ccpgsc$setInstantState(boolean closed) {
+	public void powergridsc$setInstantState(boolean closed) {
     	HvSwitchBlockEntity self = (HvSwitchBlockEntity) (Object) this;
     	var level = self.getLevel();
     	if (level == null || level.isClientSide) return;
@@ -31,7 +31,6 @@ public abstract class HvSwitchBlockEntityMixin implements IHvSwitchAccess {
     	// Snap rod
     	rod.setValue(target);
     	rod.chase(target, 0f, LerpedFloat.Chaser.LINEAR);
-    	System.out.println("Rod set to: " + rod.getValue() + " isClosed: " + isClosed());
 	
     	// Force circuit / wire update (same logic as initialize())
     	try {

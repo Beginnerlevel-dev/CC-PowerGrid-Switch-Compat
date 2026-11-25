@@ -1,4 +1,4 @@
-package com.bld.ccpgsc.mixin;
+package com.bld.powergridsc.mixin;
 
 import org.patryk3211.powergrid.electricity.electricswitch.HvSwitchVisual;
 import org.spongepowered.asm.mixin.Mixin;
