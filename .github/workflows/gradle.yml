@@ -1,0 +1,64 @@
+name: Auto Build and Release Mod
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if mod_version changed
+        id: check_prop
+        run: |
+          if git diff HEAD~1 HEAD -- gradle.properties | grep -E "^[+-]mod_version\s*="; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            
+            # Helper to extract and trim values cleanly
+            get_prop() {
+              grep -E "^$1\s*=" gradle.properties | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+            }
+
+            echo "mod_version=$(get_prop mod_version)" >> $GITHUB_OUTPUT
+            echo "mod_name=$(get_prop mod_name)" >> $GITHUB_OUTPUT
+            echo "mc_version=$(get_prop minecraft_version)" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up JDK 21
+        if: steps.check_prop.outputs.changed == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        if: steps.check_prop.outputs.changed == 'true'
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build Mod JAR
+        if: steps.check_prop.outputs.changed == 'true'
+        run: ./gradlew build
+
+      - name: Create GitHub Release and Upload JAR
+        if: steps.check_prop.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          # Creates tag: v0.1.1-1.21.1
+          tag_name: v${{ steps.check_prop.outputs.mod_version }}-${{ steps.check_prop.outputs.mc_version }}
+          # Sets release title: CC: PowerGrid SC v0.1.1 (MC 1.21.1)
+          name: ${{ steps.check_prop.outputs.mod_name }} v${{ steps.check_prop.outputs.mod_version }} (MC ${{ steps.check_prop.outputs.mc_version }})
+          files: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+          generate_release_notes: true
